@@ -13,22 +13,17 @@ namespace Formula.Cache
 
 	//	private IPowerCache GetNextCache()
 
-
-		public object Get(Guid key)
-		{
-			return Get(key.ToString());
-		}
-
-		public object Get(string key)
+					
+		public T Get<T>(string key)
 		{
 			LinkedList<ICache> missedCaches = new LinkedList<ICache>();
 
-			object value = null;
+			T value = default(T);
 
 
 			foreach (var c in _list)
 			{
-				value = c.Get(key);
+				value = c.Get<T>(key);
 				if (value != null)
 				{
 					// You got the value now add the value to the missed Caches
@@ -46,26 +41,11 @@ namespace Formula.Cache
 				}
 
 			}
-			return null;
+			return default(T);
 		}
-
-		public T Get<T>(Guid key)
-		{
-			return (T)Get(key.ToString());
-		}
-
-		public T Get<T>(string key)
-		{
-			return (T)Get(key);
-		}
-
-
-		public void Add(Guid key, object value)
-		{
-			Add(key.ToString(), value);
-		}
-
-		public void Add(string key, object value, bool pushToLinked = false)
+		
+	
+		public void Add<T>(string key, T value, bool pushToLinked = false)
 		{
 			ICache cache = _list.First<ICache>();
 
@@ -73,18 +53,11 @@ namespace Formula.Cache
 			{
 				foreach(var c in _list)
 				{
-					c.Add(key, value);
+					c.Add<T>(key, value);
 				}
 			}
 		}
-
-		public void Add<T>(Guid key, T value)
-		{
-			Add(key.ToString(), value);
-		}
-
-		
-
+	
 		public void LinkFirst(ICache linkedCache, bool addFirst = true)
 		{
 			if(addFirst)
@@ -96,12 +69,7 @@ namespace Formula.Cache
 				_list.AddLast(linkedCache);
 			}
 		}
-
-		public void Remove(Guid key)
-		{
-			Remove(key.ToString());
-		}
-
+				
 		public void Remove(string key)
 		{
 			foreach (var c in _list)

@@ -14,62 +14,48 @@ namespace Formula.Cache.Plugins.InMemory
 	{
 		private Dictionary<string, object> _cache = new Dictionary<string, object>();
 		
-
-		public void Add(Guid key, object value)
-		{
-			Add(key.ToString(), value);
-		}
-
-		public void Add(string key, object value)
+		public void Add<T>(string key, T value)
 		{
 			_cache.Add(key, value);
 		}
-
-		public void Add<T>(Guid key, T value)
+			
+	
+		public T Get<T>(string key)
 		{
-			Add(key.ToString(), value);
+			object value = null;
+
+			if (!_cache.TryGetValue(key, out value))
+			{
+				return default(T);
+			}
+
+			return (T)value;
+		}
+		
+		public void Remove(string key)
+		{
+			_cache.Remove(key);
 		}
 
-		public void CleanupExpired()
+
+		public Task CleanupExpired()
 		{
 			throw new NotImplementedException();
 		}
 
-		public object Get(Guid key)
+		public Task AddAsync<T>(string key, T value)
 		{
-			return Get(key.ToString());
+			return Task.Run(() => Add(key, value));
 		}
 
-		public object Get(string key)
-		{
-			object value = null;
-
-			if(!_cache.TryGetValue(key, out value))
-			{
-				return null;
-			}
-
-			return value;
+		public Task<T> GetAsync<T>(string key)
+		{			
+			return Task.FromResult<T>(Get<T>(key));
 		}
 
-		public T Get<T>(string key)
+		public Task RemoveAsync(string key)
 		{
-			return (T) Get(key);
-		}
-
-		public T Get<T>(Guid key)
-		{
-			return (T)Get(key);
-		}
-
-		public void Remove(Guid key)
-		{
-			_cache.Remove(key.ToString());
-		}
-
-		public void Remove(string key)
-		{
-			_cache.Remove(key);
+			return Task.Run( () => Remove(key));
 		}
 	}
 }

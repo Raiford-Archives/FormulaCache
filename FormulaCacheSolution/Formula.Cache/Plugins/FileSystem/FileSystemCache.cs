@@ -34,13 +34,13 @@ namespace Formula.Cache.Plugins.FileSystem
 		#region Private Helpers
 		private string BuildKeyHash(string key)
 		{
-			return Md5Hasher.Hash(key);		
+			return Md5Hasher.Hash(key);
 		}
 		private string GetKeyHashPrefix(string keyHash)
 		{
 			return keyHash.Substring(0, 3);
 		}
-			
+
 		private string GetCacheFileName(string key)
 		{
 			string keyHash = BuildKeyHash(key);
@@ -53,6 +53,13 @@ namespace Formula.Cache.Plugins.FileSystem
 		#endregion
 
 		#region Public Methods
+
+		public Task AddAsync<T>(string key, T value)
+		{
+			return Task.Run( () => Add<T>(key, value));
+		}
+
+
 		public void Add<T>(string key, T value)
 		{
 			byte[] bytes = BinarySerializer.ToByteArray(value);
@@ -60,6 +67,13 @@ namespace Formula.Cache.Plugins.FileSystem
 			DirectoryInfo di = Directory.CreateDirectory(Path.GetDirectoryName(fullFileName));
 			File.WriteAllBytes(fullFileName, bytes);
 		}
+
+		public Task<T> GetAsync<T>(string key)
+		{
+			return Task.FromResult(Get<T>(key));
+		}
+
+
 		public T Get<T>(string key)
 		{
 			string fileName = GetCacheFileName(key);
@@ -73,17 +87,26 @@ namespace Formula.Cache.Plugins.FileSystem
 			}
 			return default(T);
 		}
-	
+
+
+		public Task RemoveAsync(string key)
+		{
+			return Task.Run( ()=> Remove(key));
+		}
+		
+
 		public void Remove(string key)
 		{
 			string fullFileName = GetCacheFileName(key);
 			File.Delete(fullFileName);
 		}
 
-		public void CleanupExpired()
+		public Task CleanupExpired()
 		{
 			throw new NotImplementedException();
 		}
+
+		
 		#endregion
 
 	}

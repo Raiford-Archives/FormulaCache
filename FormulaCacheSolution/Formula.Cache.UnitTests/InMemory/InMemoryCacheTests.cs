@@ -19,7 +19,7 @@ namespace Formula.Cache.UnitTests.InMemory
 
 			// Add, Get and Assert
 			cache.Add(customer.Id.ToString(), customer);
-			object customerObject = cache.Get(customer.Id.ToString());
+			Customer customerObject = cache.Get<Customer>(customer.Id.ToString());
 
 			// Assert
 			Assert.IsNotNull(customerObject);
@@ -28,7 +28,7 @@ namespace Formula.Cache.UnitTests.InMemory
 
 			// Remove and Assert
 			cache.Remove(customer.Id.ToString());
-			customerObject = cache.Get(customer.Id.ToString());
+			customerObject = cache.Get<Customer>(customer.Id.ToString());
 			Assert.IsNull(customerObject);
 		
 
@@ -46,7 +46,7 @@ namespace Formula.Cache.UnitTests.InMemory
 			ICache remoteCache = new InMemoryCache();
 
 			// Add item to remoteCache
-			remoteCache.Add<Customer>(customer.Id, customer);
+			remoteCache.Add<Customer>(customer.Id.ToString(), customer);
 
 
 			// IChainedCache
@@ -56,10 +56,10 @@ namespace Formula.Cache.UnitTests.InMemory
 			chainedCache.LinkFirst(localCache);
 			
 			// This should have 1 miss (debug it to ensure)
-			Customer cachedCustomer = (Customer) chainedCache.Get(customer.Id);
+			Customer cachedCustomer = (Customer) chainedCache.Get<Customer>(customer.Id.ToString());
 
 			// This should have 0 miss (debug it to ensure) since it was added in the last Get()
-			cachedCustomer = (Customer)chainedCache.Get(customer.Id);
+			cachedCustomer = (Customer)chainedCache.Get<Customer>(customer.Id.ToString());
 
 			// Assert
 			Assert.IsNotNull(cachedCustomer);

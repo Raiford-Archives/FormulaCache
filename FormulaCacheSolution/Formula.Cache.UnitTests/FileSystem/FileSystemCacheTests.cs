@@ -22,18 +22,17 @@ namespace Formula.Cache.UnitTests.FileSystem
 
 			// Add, Get and Assert
 			cache.Add(customer.Id.ToString(), customer);
-			object customerObject = cache.Get(customer.Id.ToString());
-			Customer newCustomer = customerObject as Customer;
-
+			Customer newCustomer = cache.Get<Customer>(customer.Id.ToString());
+			
 			// Assert
-			Assert.IsNotNull(customerObject);
-			Assert.IsInstanceOfType(customerObject, typeof(Customer));
+			Assert.IsNotNull(newCustomer);
+			Assert.IsInstanceOfType(newCustomer, typeof(Customer));
 			Assert.IsTrue(compare.Compare(customer, newCustomer).AreEqual);
 
 			// Remove and Assert
 			cache.Remove(customer.Id.ToString());
-			customerObject = cache.Get(customer.Id.ToString());
-			Assert.IsNull(customerObject);
+			newCustomer = cache.Get<Customer>(customer.Id.ToString());
+			Assert.IsNull(newCustomer);
 			
 		}
 

@@ -10,10 +10,12 @@ namespace Formula.Cache
 	public interface ICache
 	{
 		void Add<T>(string key, T value);
+		Task AddAsync<T>(string key, T value);
 		T Get<T>(string key);
+		Task<T> GetAsync<T>(string key);
 		void Remove(string key);
-	
-		void CleanupExpired();
+		Task RemoveAsync(string key);
+		Task CleanupExpired();
 
 	}
 }
