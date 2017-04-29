@@ -9,16 +9,10 @@ namespace Formula.Cache
 {
 	public interface ICache
 	{
-		void Add(string key, object value);
-		void Add(Guid key, object value);
-		void Add<T>(Guid key, T value);
-		void Remove(string key);
-		void Remove(Guid key);
-		object Get(string key);
-		object Get(Guid key);
+		void Add<T>(string key, T value);
 		T Get<T>(string key);
-		T Get<T>(Guid key);
-
+		void Remove(string key);
+	
 		void CleanupExpired();
 
 	}
