@@ -119,7 +119,7 @@ sql/
 
 
 # Had to comment this out to get my Formula.Cache folder
-#*.Cache
+#*.CacheXXXXX
 
 
 ClientBin/
