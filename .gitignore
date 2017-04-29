@@ -117,9 +117,8 @@ AppPackages/
 # Others
 sql/
 
-
 # Had to comment this out to get my Formula.Cache folder
-#*.CacheXXXXX
+#*.XXXXXCacheXXXXX
 
 
 ClientBin/
