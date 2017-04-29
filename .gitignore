@@ -116,7 +116,12 @@ AppPackages/
 
 # Others
 sql/
-*.Cache
+
+
+# Had to comment this out to get my Formula.Cache folder
+#*.Cache
+
+
 ClientBin/
 [Ss]tyle[Cc]op.*
 ~$*
