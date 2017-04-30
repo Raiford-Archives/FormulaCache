@@ -1,0 +1,21 @@
+Formula Super Cache - Distributed, Multi-Level, High Performance, Flexible, Extendible, and Super Easy to use Cache for .NET applications.
+
+
+Features
+--------------------------
+- Completely customizable via Plugins.
+- Distributed across any number of other caches 
+- Easily create your own Plugins using the Super Cache Plugin Tool
+
+
+
+
+
+
+
+
+Super Cache Plugin Test Harness
+----------------------------------
+A Winforms app that can be used to independently test out the many cache plugins for performance,
+hits misses etc. The application can host any plugin derived from ICache.
+to Test your plugins you can use a prebuilt Unit Test.

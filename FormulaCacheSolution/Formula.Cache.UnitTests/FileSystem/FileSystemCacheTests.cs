@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Formula.Core.UnitTesting.Data;
-using Formula.Cache.Plugins.FileSystem;
 using Formula.Core.UnitTesting;
 using KellermanSoftware.CompareNetObjects;
+using Formula.Cache.CachePlugins.FileSystem;
 
 namespace Formula.Cache.UnitTests.FileSystem
 {

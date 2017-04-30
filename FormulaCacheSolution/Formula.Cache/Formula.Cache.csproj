@@ -64,13 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheNotificationHub.cs" />
-    <Compile Include="ChainedCache.cs" />
-    <Compile Include="ICacheNotifications.cs" />
-    <Compile Include="IChainedCache.cs" />
+    <Compile Include="CacheOptions.cs" />
+    <Compile Include="CacheStatistics.cs" />
+    <Compile Include="HubPlugins\InMemoryHub.cs" />
+    <Compile Include="SuperCache.cs" />
+    <Compile Include="ICacheHub.cs" />
     <Compile Include="ICache.cs" />
-    <Compile Include="Plugins\FileSystem\FileSystemCache.cs" />
-    <Compile Include="Plugins\InMemory\InMemoryCache.cs" />
+    <Compile Include="CachePlugins\FileSystem\FileSystemCache.cs" />
+    <Compile Include="CachePlugins\InMemory\InMemoryCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
