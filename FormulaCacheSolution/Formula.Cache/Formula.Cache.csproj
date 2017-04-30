@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheOptions.cs" />
+    <Compile Include="CachePlugins\MemoryObject\MemoryObjectCache.cs" />
     <Compile Include="CacheStatistics.cs" />
     <Compile Include="HubPlugins\InMemoryHub.cs" />
     <Compile Include="SuperCache.cs" />

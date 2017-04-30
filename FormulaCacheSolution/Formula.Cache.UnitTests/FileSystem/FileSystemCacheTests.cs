@@ -7,31 +7,13 @@ using Formula.Cache.CachePlugins.FileSystem;
 namespace Formula.Cache.UnitTests.FileSystem
 {
 	[TestClass]
-	public class FileSystemCacheTests
+	public class FileSystemCacheTests : CachePluginTestsBase
 	{
 		[TestMethod]
 		[TestCategory(TestCategories.UnitTest)]
-		public void AddGetRemove_Success()
+		public void AddGetRemoveGet_Success()
 		{
-			CompareLogic compare = new CompareLogic();
-
-			// Arrange
-			Customer customer = TestData.CreateCustomer();
-			ICache cache = new FileSystemCache();
-
-			// Add, Get and Assert
-			cache.Add(customer.Id.ToString(), customer);
-			Customer newCustomer = cache.Get<Customer>(customer.Id.ToString());
-			
-			// Assert
-			Assert.IsNotNull(newCustomer);
-			Assert.IsInstanceOfType(newCustomer, typeof(Customer));
-			Assert.IsTrue(compare.Compare(customer, newCustomer).AreEqual);
-
-			// Remove and Assert
-			cache.Remove(customer.Id.ToString());
-			newCustomer = cache.Get<Customer>(customer.Id.ToString());
-			Assert.IsNull(newCustomer);
+			AddGetRemoveGet_Success(new FileSystemCache());
 			
 		}
 

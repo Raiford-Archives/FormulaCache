@@ -81,9 +81,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CachePluginTestsBase.cs" />
     <Compile Include="CacheTests.cs" />
     <Compile Include="FileSystem\FileSystemCacheTests.cs" />
     <Compile Include="InMemory\InMemoryCacheTests.cs" />
+    <Compile Include="MemoryObject\MemoryObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
