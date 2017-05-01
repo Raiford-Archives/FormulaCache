@@ -1,7 +1,6 @@
-﻿using Formula.Cache.CachePlugins.FileSystem;
-using Formula.Cache.CachePlugins.InMemory;
-using Formula.Cache.CachePlugins.MemoryObject;
-using Formula.Cache.NotificationPlugins;
+﻿using Formula.Cache.Plugins.CachePlugins.FileSystem;
+using Formula.Cache.Plugins.CachePlugins.InMemory;
+using Formula.Cache.Plugins.CachePlugins.MemoryObject;
 using Formula.Core.LoggersDiagnostics;
 using Formula.Core.UnitTesting;
 using Formula.Core.UnitTesting.Data;
@@ -18,20 +17,20 @@ namespace Formula.Cache.UnitTests
 		public void SuperCache_Success()
 		{
 			// Configure Cache Options
-			CacheOptions options = new CacheOptions
+			CacheConfig config = new CacheConfig
 			{
 				CacheHub = new InMemoryHub(),
 				EnableStatistics = true,
 				EnableTracing = true,
 				
 			};
-			options.CacheList.AddFirst(new MemoryObjectCache());
-			options.CacheList.AddFirst(new FileSystemCache());
-			options.CacheList.AddFirst(new InMemoryCache());
+			config.CacheList.AddFirst(new MemoryObjectCache());
+			config.CacheList.AddFirst(new FileSystemCache());
+			config.CacheList.AddFirst(new InMemoryCache());
 			
 
 			// Create the Cache
-			SuperCache cache = new SuperCache(options);
+			SuperCache cache = new SuperCache(config);
 
 
 			// Add some item and ready to GO!
@@ -63,13 +62,13 @@ namespace Formula.Cache.UnitTests
 
 			// IChainedCache
 			// Hookup the cache Chain
-			CacheOptions options = new CacheOptions();
-			options.CacheHub = new InMemoryHub();
-			options.CacheList.AddFirst(memoryCache);
-			options.CacheList.AddFirst(remoteCache);
-			options.CacheList.AddFirst(localCache);
+			CacheConfig config = new CacheConfig();
+			config.CacheHub = new InMemoryHub();
+			config.CacheList.AddFirst(memoryCache);
+			config.CacheList.AddFirst(remoteCache);
+			config.CacheList.AddFirst(localCache);
 
-			SuperCache cache = new SuperCache(options);
+			SuperCache cache = new SuperCache(config);
 
 			// This should have 1 miss (debug it to ensure)
 			Customer cachedCustomer = (Customer)cache.Get<Customer>(customer.Id.ToString());
@@ -94,13 +93,13 @@ namespace Formula.Cache.UnitTests
 			ICache remoteCache = new FileSystemCache();
 
 
-			CacheOptions options = new CacheOptions();
-			options.CacheList.AddFirst(memoryCache);
-			options.CacheList.AddFirst(remoteCache);
-			options.CacheList.AddFirst(localCache);
+			CacheConfig config = new CacheConfig();
+			config.CacheList.AddFirst(memoryCache);
+			config.CacheList.AddFirst(remoteCache);
+			config.CacheList.AddFirst(localCache);
 
 			// Link the cache Chain
-			SuperCache chainedCache = new SuperCache(options);
+			SuperCache chainedCache = new SuperCache(config);
 
 
 			// This should have no cached customer
@@ -127,20 +126,20 @@ namespace Formula.Cache.UnitTests
 			ICache localCache = new InMemoryCache();
 			ICache remoteCache = new FileSystemCache();
 
-			CacheOptions options = new CacheOptions();
-			options.CacheList.AddFirst(memoryCache);
-			options.CacheList.AddFirst(remoteCache);
-			options.CacheList.AddFirst(localCache);
-			options.CacheHub = new InMemoryHub();
+			CacheConfig config = new CacheConfig();
+			config.CacheList.AddFirst(memoryCache);
+			config.CacheList.AddFirst(remoteCache);
+			config.CacheList.AddFirst(localCache);
+			config.CacheHub = new InMemoryHub();
 
 			// Link the cache Chain
-			SuperCache chainedCache = new SuperCache(options);
+			SuperCache chainedCache = new SuperCache(config);
 
 			// Register Caches with notification hub
-			ICacheHub notifications = new InMemoryHub();
-			notifications.RegisterCache(remoteCache);
-			notifications.RegisterCache(localCache);
-			notifications.RegisterCache(memoryCache);
+			ICacheHub hub = new InMemoryHub();
+			hub.RegisterCache(remoteCache);
+			hub.RegisterCache(localCache);
+			hub.RegisterCache(memoryCache);
 
 
 
@@ -155,7 +154,7 @@ namespace Formula.Cache.UnitTests
 			//chainedCache.Remove(customer.Id.ToString());
 
 			// Send notification (This will delete the item)
-			notifications.BroadcastInvalidation(customer.Id.ToString());
+			hub.PublishMessage(new CacheMessage { Command = CacheMessageCommands.Invalidate, Data = customer.Id.ToString() });
 
 			// Confirm its gone.
 			cachedCustomer = (Customer)chainedCache.Get<Customer>(customer.Id.ToString());
@@ -176,13 +175,13 @@ namespace Formula.Cache.UnitTests
 			ICache localCache = new InMemoryCache();
 			ICache remoteCache = new FileSystemCache();
 
-			CacheOptions options = new CacheOptions();
-			options.CacheList.AddFirst(remoteCache);
-			options.CacheList.AddFirst(localCache);
-			options.CacheList.AddFirst(memoryCache);
-			options.CacheHub = new InMemoryHub();
+			CacheConfig config = new CacheConfig();
+			config.CacheList.AddFirst(remoteCache);
+			config.CacheList.AddFirst(localCache);
+			config.CacheList.AddFirst(memoryCache);
+			config.CacheHub = new InMemoryHub();
 
-			SuperCache cache = new SuperCache();
+			SuperCache cache = new SuperCache(config);
 
 
 			// Now we will add it to the caches local to the remotes
@@ -205,7 +204,7 @@ namespace Formula.Cache.UnitTests
 		[TestCategory(TestCategories.Performance)]
 		public void AddGetRemoveGet_PerformanceAll()
 		{
-			int iterations = 1000;
+			int iterations = 10000;
 
 			using (PerfLog perf = PerfLog.StartNew(iterations))
 			{

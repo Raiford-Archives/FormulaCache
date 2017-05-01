@@ -17,5 +17,12 @@ namespace Formula.Cache
 		Task RemoveAsync(string key);
 		Task CleanupExpired();
 
+
+
+		//bool RequiresSerialization { get; set; }
+		//int Count { get; set; }
+
+		//string HostingModel { InProcess, LocalMachine, Remote}
+
 	}
 }

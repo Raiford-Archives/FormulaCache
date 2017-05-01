@@ -87,6 +87,8 @@
     <Compile Include="InMemory\InMemoryCacheTests.cs" />
     <Compile Include="MemoryObject\MemoryObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CacheHubTests.cs" />
+    <Compile Include="ConfigFileTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

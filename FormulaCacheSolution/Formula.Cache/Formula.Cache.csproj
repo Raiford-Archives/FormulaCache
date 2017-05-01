@@ -65,19 +65,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheOptions.cs" />
-    <Compile Include="CachePlugins\MemoryObject\MemoryObjectCache.cs" />
+    <Compile Include="CacheConfig.cs" />
+    <Compile Include="CacheHub.cs" />
+    <Compile Include="CacheHubConfig.cs" />
+    <Compile Include="CacheMessage.cs" />
+    <Compile Include="CachePluginConfig.cs" />
+    <Compile Include="Configuration\CacheConfig.cs" />
+    <Compile Include="Plugins\CachePlugins\MemoryObject\MemoryObjectCache.cs" />
     <Compile Include="CacheStatistics.cs" />
-    <Compile Include="HubPlugins\InMemoryHub.cs" />
+    <Compile Include="Plugins\HubPlugins\InMemoryHub.cs" />
+    <Compile Include="CacheMessageReceivedArgs.cs" />
     <Compile Include="SuperCache.cs" />
     <Compile Include="ICacheHub.cs" />
     <Compile Include="ICache.cs" />
-    <Compile Include="CachePlugins\FileSystem\FileSystemCache.cs" />
-    <Compile Include="CachePlugins\InMemory\InMemoryCache.cs" />
+    <Compile Include="Plugins\CachePlugins\FileSystem\FileSystemCache.cs" />
+    <Compile Include="Plugins\CachePlugins\InMemory\InMemoryCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\MessagePublisherPlugins\" />
+    <Folder Include="Plugins\MessageSubscriberPlugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration\CacheConfig.json">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
