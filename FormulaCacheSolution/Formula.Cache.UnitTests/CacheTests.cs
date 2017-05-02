@@ -2,12 +2,10 @@
 using Formula.Cache.Plugins.CachePlugins.FileSystem;
 using Formula.Cache.Plugins.CachePlugins.InMemory;
 using Formula.Cache.Plugins.CachePlugins.MemoryObject;
-using Formula.Cache.Plugins.HubPlugins;
 using Formula.Core.LoggersDiagnostics;
 using Formula.Core.UnitTesting;
 using Formula.Core.UnitTesting.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace Formula.Cache.UnitTests
 {
@@ -135,31 +133,28 @@ namespace Formula.Cache.UnitTests
 			//config.CacheHub = new InMemoryHub();
 
 			// Link the cache Chain
-			MultiCache chainedCache = new MultiCache(config);
+			MultiCache multiCache = new MultiCache(config);
 
 			// Register Caches with notification hub
-			ICacheHub hub = new InMemoryHub();
-			hub.RegisterCache(remoteCache);
-			hub.RegisterCache(localCache);
-			hub.RegisterCache(memoryCache);
-
-
+			ICacheHub hub = new CacheHub();
+			hub.Register(multiCache);
+		
 
 			// Now we will add it to the caches local to the remotes
 			bool pushToOuter = true;
-			chainedCache.Add<Customer>(customer.Id.ToString(), customer, pushToOuter);
+			multiCache.Add<Customer>(customer.Id.ToString(), customer, pushToOuter);
 
-			Customer cachedCustomer = (Customer)chainedCache.Get<Customer>(customer.Id.ToString());
+			Customer cachedCustomer = (Customer)multiCache.Get<Customer>(customer.Id.ToString());
 			Assert.IsNotNull(cachedCustomer);
 
 			// Now remove it and should remove from local to the remotes
 			//chainedCache.Remove(customer.Id.ToString());
 
 			// Send notification (This will delete the item)
-			hub.PublishMessage(new CacheMessage { Command = CacheMessageCommands.Invalidate, Data = customer.Id.ToString() });
+			hub.PublishMessage(new CacheMessage { Command = CacheMessageCommands.ItemInvalidated, Data = customer.Id.ToString() });
 
 			// Confirm its gone.
-			cachedCustomer = (Customer)chainedCache.Get<Customer>(customer.Id.ToString());
+			cachedCustomer = (Customer)multiCache.Get<Customer>(customer.Id.ToString());
 			Assert.IsNull(cachedCustomer);
 
 		}

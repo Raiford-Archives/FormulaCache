@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Formula.Core.Serialization;
 using System.Diagnostics;
 using Formula.Cache.Configuration;

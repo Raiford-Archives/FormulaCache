@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Formula.Cache
 {
@@ -9,6 +10,7 @@ namespace Formula.Cache
 	/// </summary>
 	public interface ICache
 	{
+		Guid Id { get; set; } 
 		void Add<T>(string key, T value);
 		Task AddAsync<T>(string key, T value);
 		T Get<T>(string key);

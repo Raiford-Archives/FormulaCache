@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Formula.Core.UnitTesting;
-using Formula.Core.UnitTesting.Data;
 using Formula.Cache.Plugins.CachePlugins.MemoryObject;
 using System.Runtime.Caching;
 

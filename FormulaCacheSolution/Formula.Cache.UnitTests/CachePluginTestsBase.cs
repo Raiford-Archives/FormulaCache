@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KellermanSoftware.CompareNetObjects;
 using Formula.Core.UnitTesting.Data;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Formula.Cache.UnitTests

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using Formula.Cache.Plugins.CachePlugins.MemoryObject;
 using Formula.Cache.Configuration;
@@ -29,7 +28,7 @@ namespace Formula.Cache.UnitTests
 
 			hub.MessageReceived += ((source, args) => Debug.WriteLine("Message Received"));
 
-			CacheMessage message = new CacheMessage() { Command = CacheMessageCommands.Invalidate, Data="CacheKey that changed"};
+			CacheMessage message = new CacheMessage() { Command = CacheMessageCommands.ItemInvalidated, Data="CacheKey that changed"};
 
 			// Simulate some data changing
 			hub.PublishMessage(message);
