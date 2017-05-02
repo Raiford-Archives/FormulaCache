@@ -2,6 +2,7 @@
 using Formula.Core.UnitTesting;
 using Formula.Cache.Plugins.CachePlugins.MemoryObject;
 using System.Runtime.Caching;
+using System;
 
 namespace Formula.Cache.UnitTests.MemoryObject
 {
@@ -15,9 +16,6 @@ namespace Formula.Cache.UnitTests.MemoryObject
 			AddGetRemoveGet_Success(new MemoryObjectCache());
 
 		}
-
-
-
 
 
 		[TestMethod]
@@ -39,12 +37,19 @@ namespace Formula.Cache.UnitTests.MemoryObject
 		
 			//TODO - work this into the design
 			CacheItemPolicy policy = new CacheItemPolicy();
-			//policy.
+	//policy.
+
+			DateTimeOffset o = DateTimeOffset.Now;
 
 
 
+		}
 
-
+		[TestMethod]
+		[TestCategory(TestCategories.UnitTest)]
+		public void AddGetExpireGet_Success()
+		{
+			AddGetExpireGet_Success(new MemoryObjectCache());
 
 		}
 

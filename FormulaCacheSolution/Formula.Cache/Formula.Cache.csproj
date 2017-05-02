@@ -65,15 +65,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheExpirationType.cs" />
+    <Compile Include="CacheItemBehavior.cs" />
     <Compile Include="Configuration\CacheConfig.cs" />
     <Compile Include="CacheHub.cs" />
     <Compile Include="CacheHubConfig.cs" />
     <Compile Include="CacheMessage.cs" />
     <Compile Include="Configuration\CacheConfigDefinition.cs" />
-    <Compile Include="IHubPublisher.cs" />
+    <Compile Include="ICacheHubPublisher.cs" />
     <Compile Include="Plugins\CachePlugins\MemoryObject\MemoryObjectCache.cs" />
     <Compile Include="CacheStatistics.cs" />
-    <Compile Include="Plugins\HubPlugins\InMemoryHub.cs" />
     <Compile Include="CacheMessageReceivedArgs.cs" />
     <Compile Include="MultiCache.cs" />
     <Compile Include="ICacheHub.cs" />
@@ -86,9 +87,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Plugins\CachePlugins\AzureCache\" />
+    <Folder Include="Plugins\CachePlugins\AzureRedis\" />
+    <Folder Include="Plugins\CachePlugins\Memcached\" />
+    <Folder Include="Plugins\CachePlugins\NCache\" />
     <Folder Include="Plugins\HubMessagePlugins\" />
     <Folder Include="Plugins\MessagePublisherPlugins\" />
-    <Folder Include="Plugins\MessageSubscriberPlugins\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\CacheConfig.json">
