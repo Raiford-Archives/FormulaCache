@@ -69,9 +69,6 @@ namespace Formula.Cache.UnitTests
 			
 		}
 
-		private void Hub_MessageReceived(object source, CacheMessageReceivedArgs e)
-		{
-			throw new NotImplementedException();
-		}
+	
 	}
 }

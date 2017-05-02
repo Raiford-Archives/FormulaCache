@@ -66,12 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\CacheConfig.cs" />
-    <Compile Include="_CacheConfig.cs" />
     <Compile Include="CacheHub.cs" />
     <Compile Include="CacheHubConfig.cs" />
     <Compile Include="CacheMessage.cs" />
-    <Compile Include="CachePluginConfig.cs" />
     <Compile Include="Configuration\CacheConfigDefinition.cs" />
+    <Compile Include="IHubPublisher.cs" />
     <Compile Include="Plugins\CachePlugins\MemoryObject\MemoryObjectCache.cs" />
     <Compile Include="CacheStatistics.cs" />
     <Compile Include="Plugins\HubPlugins\InMemoryHub.cs" />
@@ -87,6 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Plugins\HubMessagePlugins\" />
     <Folder Include="Plugins\MessagePublisherPlugins\" />
     <Folder Include="Plugins\MessageSubscriberPlugins\" />
   </ItemGroup>
