@@ -65,17 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheConfig.cs" />
+    <Compile Include="Configuration\CacheConfig.cs" />
+    <Compile Include="_CacheConfig.cs" />
     <Compile Include="CacheHub.cs" />
     <Compile Include="CacheHubConfig.cs" />
     <Compile Include="CacheMessage.cs" />
     <Compile Include="CachePluginConfig.cs" />
-    <Compile Include="Configuration\CacheConfig.cs" />
+    <Compile Include="Configuration\CacheConfigDefinition.cs" />
     <Compile Include="Plugins\CachePlugins\MemoryObject\MemoryObjectCache.cs" />
     <Compile Include="CacheStatistics.cs" />
     <Compile Include="Plugins\HubPlugins\InMemoryHub.cs" />
     <Compile Include="CacheMessageReceivedArgs.cs" />
-    <Compile Include="SuperCache.cs" />
+    <Compile Include="MultiCache.cs" />
     <Compile Include="ICacheHub.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="Plugins\CachePlugins\FileSystem\FileSystemCache.cs" />

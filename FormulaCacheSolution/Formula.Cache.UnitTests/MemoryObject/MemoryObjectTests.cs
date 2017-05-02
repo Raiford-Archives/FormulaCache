@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Formula.Core.UnitTesting;
 using Formula.Core.UnitTesting.Data;
-using Formula.Cache.CachePlugins.MemoryObject;
+using Formula.Cache.Plugins.CachePlugins.MemoryObject;
 
 namespace Formula.Cache.UnitTests.MemoryObject
 {

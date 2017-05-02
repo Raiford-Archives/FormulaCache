@@ -1,6 +1,8 @@
-﻿using Formula.Cache.Plugins.CachePlugins.FileSystem;
+﻿using Formula.Cache.Configuration;
+using Formula.Cache.Plugins.CachePlugins.FileSystem;
 using Formula.Cache.Plugins.CachePlugins.InMemory;
 using Formula.Cache.Plugins.CachePlugins.MemoryObject;
+using Formula.Cache.Plugins.HubPlugins;
 using Formula.Core.LoggersDiagnostics;
 using Formula.Core.UnitTesting;
 using Formula.Core.UnitTesting.Data;
@@ -19,18 +21,18 @@ namespace Formula.Cache.UnitTests
 			// Configure Cache Options
 			CacheConfig config = new CacheConfig
 			{
-				CacheHub = new InMemoryHub(),
+			//	CacheHub = new InMemoryHub(),
 				EnableStatistics = true,
 				EnableTracing = true,
 				
 			};
-			config.CacheList.AddFirst(new MemoryObjectCache());
-			config.CacheList.AddFirst(new FileSystemCache());
-			config.CacheList.AddFirst(new InMemoryCache());
+			config.CachePlugins.Add(new MemoryObjectCache());
+			config.CachePlugins.Add(new FileSystemCache());
+			config.CachePlugins.Add(new InMemoryCache());
 			
 
 			// Create the Cache
-			SuperCache cache = new SuperCache(config);
+			MultiCache cache = new MultiCache(config);
 
 
 			// Add some item and ready to GO!
@@ -63,12 +65,12 @@ namespace Formula.Cache.UnitTests
 			// IChainedCache
 			// Hookup the cache Chain
 			CacheConfig config = new CacheConfig();
-			config.CacheHub = new InMemoryHub();
-			config.CacheList.AddFirst(memoryCache);
-			config.CacheList.AddFirst(remoteCache);
-			config.CacheList.AddFirst(localCache);
+			//config.CacheHub = new InMemoryHub();
+			config.CachePlugins.Add(memoryCache);
+			config.CachePlugins.Add(remoteCache);
+			config.CachePlugins.Add(localCache);
 
-			SuperCache cache = new SuperCache(config);
+			MultiCache cache = new MultiCache(config);
 
 			// This should have 1 miss (debug it to ensure)
 			Customer cachedCustomer = (Customer)cache.Get<Customer>(customer.Id.ToString());
@@ -94,12 +96,12 @@ namespace Formula.Cache.UnitTests
 
 
 			CacheConfig config = new CacheConfig();
-			config.CacheList.AddFirst(memoryCache);
-			config.CacheList.AddFirst(remoteCache);
-			config.CacheList.AddFirst(localCache);
+			config.CachePlugins.Add(memoryCache);
+			config.CachePlugins.Add(remoteCache);
+			config.CachePlugins.Add(localCache);
 
 			// Link the cache Chain
-			SuperCache chainedCache = new SuperCache(config);
+			MultiCache chainedCache = new MultiCache(config);
 
 
 			// This should have no cached customer
@@ -127,13 +129,13 @@ namespace Formula.Cache.UnitTests
 			ICache remoteCache = new FileSystemCache();
 
 			CacheConfig config = new CacheConfig();
-			config.CacheList.AddFirst(memoryCache);
-			config.CacheList.AddFirst(remoteCache);
-			config.CacheList.AddFirst(localCache);
-			config.CacheHub = new InMemoryHub();
+			config.CachePlugins.Add(memoryCache);
+			config.CachePlugins.Add(remoteCache);
+			config.CachePlugins.Add(localCache);
+			//config.CacheHub = new InMemoryHub();
 
 			// Link the cache Chain
-			SuperCache chainedCache = new SuperCache(config);
+			MultiCache chainedCache = new MultiCache(config);
 
 			// Register Caches with notification hub
 			ICacheHub hub = new InMemoryHub();
@@ -176,12 +178,12 @@ namespace Formula.Cache.UnitTests
 			ICache remoteCache = new FileSystemCache();
 
 			CacheConfig config = new CacheConfig();
-			config.CacheList.AddFirst(remoteCache);
-			config.CacheList.AddFirst(localCache);
-			config.CacheList.AddFirst(memoryCache);
-			config.CacheHub = new InMemoryHub();
+			config.CachePlugins.Add(remoteCache);
+			config.CachePlugins.Add(localCache);
+			config.CachePlugins.Add(memoryCache);
+			//config.CacheHub = new InMemoryHub();
 
-			SuperCache cache = new SuperCache(config);
+			MultiCache cache = new MultiCache(config);
 
 
 			// Now we will add it to the caches local to the remotes

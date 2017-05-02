@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Formula.Cache.CachePlugins.MemoryObject;
 using System.Diagnostics;
+using Formula.Cache.Plugins.CachePlugins.MemoryObject;
+using Formula.Cache.Configuration;
 
 namespace Formula.Cache.UnitTests
 {
@@ -14,14 +15,14 @@ namespace Formula.Cache.UnitTests
 			// Configure Cache
 			ICache memoryCache = new MemoryObjectCache();
 
-			CacheConfig config = CacheConfig.CreatedFromFile();
-			CacheHubConfig hubConfig = CacheHubConfig.CreateFromFile();
+			CacheConfig config = new CacheConfig();
+			CacheHubConfig hubConfig = new CacheHubConfig();
 
-			config.CacheList.AddFirst(memoryCache);
+			config.CachePlugins.Add(memoryCache);
 			
 			//options.CacheHub = new InMemoryHub();
 
-			SuperCache cache = new SuperCache(config);
+			MultiCache cache = new MultiCache(config);
 
 			CacheHub hub = new CacheHub(hubConfig);
 

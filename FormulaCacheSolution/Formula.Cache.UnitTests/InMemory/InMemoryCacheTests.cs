@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Formula.Core.UnitTesting.Data;
 using Formula.Core.UnitTesting;
-using Formula.Cache.CachePlugins.InMemory;
-using Formula.Cache.CachePlugins.FileSystem;
-using Formula.Cache.NotificationPlugins;
+using Formula.Cache.Plugins.CachePlugins.InMemory;
 
 namespace Formula.Cache.UnitTests.InMemory
 {
